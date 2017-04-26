@@ -1,0 +1,56 @@
+{
+    "body": null,
+    "headers": {
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "en-US,en;q=0.8,ru;q=0.6,uk;q=0.4",
+      "CloudFront-Forwarded-Proto": "https",
+      "CloudFront-Is-Desktop-Viewer": "true",
+      "CloudFront-Is-Mobile-Viewer": "false",
+      "CloudFront-Is-SmartTV-Viewer": "false",
+      "CloudFront-Is-Tablet-Viewer": "false",
+      "CloudFront-Viewer-Country": "UA",
+      "Host": "",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3076.0 Safari/537.36",
+      "Via": "",
+      "X-Amz-Cf-Id": "",
+      "X-Amzn-Trace-Id": "",
+      "X-Forwarded-For": "37.73.233.176, 54.239.171.44",
+      "X-Forwarded-Port": "443",
+      "X-Forwarded-Proto": "https",
+      "upgrade-insecure-requests": "1"
+    },
+    "httpMethod": "GET",
+    "isBase64Encoded": false,
+    "path": "/first",
+    "pathParameters": null,
+    "queryStringParameters": {
+      "param1": "ok",
+      "param2": "okok"
+    },
+    "requestContext": {
+      "accountId": "",
+      "apiId": "",
+      "httpMethod": "GET",
+      "identity": {
+        "accessKey": null,
+        "accountId": null,
+        "apiKey": null,
+        "caller": null,
+        "cognitoAuthenticationProvider": null,
+        "cognitoAuthenticationType": null,
+        "cognitoIdentityId": null,
+        "cognitoIdentityPoolId": null,
+        "sourceIp": "37.73.233.176",
+        "user": null,
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3076.0 Safari/537.36",
+        "userArn": null
+      },
+      "requestId": "4073894c-2a60-11e7-aa0b-3b98237f23f7",
+      "resourceId": "",
+      "resourcePath": "/first",
+      "stage": "dev"
+    },
+    "resource": "/first",
+    "stageVariables": null
+}

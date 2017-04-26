@@ -1,0 +1,10 @@
+# package directories
+node_modules
+jspm_packages
+dist
+*.zip
+npm-debug.log*
+.webpack
+
+# Serverless directories
+.serverless
