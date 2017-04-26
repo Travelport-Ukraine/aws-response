@@ -7,7 +7,8 @@
     "lint": "eslint .",
     "fix": "eslint --fix .",
     "test": "mocha --recursive",
-    "prepush": "npm test && npm run lint"
+    "prepush": "npm test && npm run lint",
+    "prepublish": "npm test && npm run lint"
   },
   "devDependencies": {
     "chai": "^3.5.0",
