@@ -30,6 +30,15 @@ module.exports.lambda = R((data) => {
 });
 ```
 
+Also it's possible to pass `handler` as second param and `settings` object as first.
+
+Default `settings` fields:
+```
+const defaultSettings = {
+    transform: data => data, // called first 
+    validate: data => data,  // than validate and after validation handler is called
+}
+```
 
 ## Responses
 

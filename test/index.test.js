@@ -2,6 +2,46 @@ const { expect } = require('chai');
 const R = require('../lib/index');
 
 describe('Test handling request', () => {
+  it('should check if transform works correctly', (cb) => {
+    const event = require('./sample-requests/GET-request-aws.json');
+
+    const handler = R({
+      transform: (data) => {
+        expect(data).to.be.deep.equal(event.queryStringParameters);
+        return Object.assign({}, data, { newField: 12134 });
+      }
+    },(data) => {
+      expect(data.newField).to.be.equal(12134);
+      return { ok: 1 };
+    });
+
+    handler(event, { requestId: 12345 }, (err, result) => {
+
+      cb();
+    });
+  });
+
+
+  it('should check if validation works correctly', (cb) => {
+    const event = require('./sample-requests/GET-request-aws.json');
+
+    const handler = R({
+      validate: (data) => {
+        expect(data).to.be.deep.equal(event.queryStringParameters);
+        throw new Error('VALIDATION');
+      }
+    },(data) => {
+      return { ok: 1 };
+    });
+
+    handler(event, { requestId: 12345 }, (err, result) => {
+      expect(result.body).to.be.a('string');
+      const body = JSON.parse(result.body);
+      expect(body.errorMessage).to.be.equal('VALIDATION');
+      cb();
+    });
+  });
+
   it('should check if get params parsed correctly', (cb) => {
     const event = require('./sample-requests/GET-request-aws.json');
 
