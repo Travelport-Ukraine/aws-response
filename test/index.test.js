@@ -46,7 +46,8 @@ describe('Test handling request', () => {
     const event = require('./sample-requests/GET-request-aws.json');
 
     const handler = R((data) => {
-      expect(data).to.be.deep.equal(event.queryStringParameters);
+      expect(data).to.be.deep.equal(Object.assign(
+        {}, event.queryStringParameters, { authorizer: undefined }));
       return { ok: 1 };
     });
 
@@ -75,7 +76,10 @@ describe('Test handling request', () => {
     const event = require('./sample-requests/POST-request-aws.json');
 
     const handler = R((data) => {
-      expect(data).to.be.deep.equal(JSON.parse(event.body));
+      expect(data).to.be.deep.equal(Object.assign({},
+        JSON.parse(event.body),
+        { authorizer: undefined }
+      ));
       return Promise.resolve({ ok: 1 });
     });
 
