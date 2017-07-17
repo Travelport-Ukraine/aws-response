@@ -1,5 +1,7 @@
 # AWS-Response
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Travelport-Ukraine/aws-response.svg)](https://greenkeeper.io/)
+
 ## Purpose
 
 Lib for handling aws requests in single way
