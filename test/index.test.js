@@ -7,7 +7,7 @@ describe('Test handling request', () => {
 
     const handler = R({
       transform: (data) => {
-        expect(data).to.be.deep.equal(event.queryStringParameters);
+        expect(data).to.be.deep.equal(Object.assign(event.queryStringParameters, { headers: event.headers }));
         return Object.assign({}, data, { newField: 12134 });
       }
     },(data) => {
@@ -27,7 +27,7 @@ describe('Test handling request', () => {
 
     const handler = R({
       validate: (data) => {
-        expect(data).to.be.deep.equal(event.queryStringParameters);
+        expect(data).to.be.deep.equal(Object.assign(event.queryStringParameters, { headers: event.headers }));
         throw new Error('VALIDATION');
       }
     },(data) => {
@@ -47,7 +47,7 @@ describe('Test handling request', () => {
 
     const handler = R((data) => {
       expect(data).to.be.deep.equal(Object.assign(
-        {}, event.queryStringParameters, { authorizer: undefined }));
+        {}, event.queryStringParameters, { authorizer: undefined, headers: event.headers }));
       return { ok: 1 };
     });
 
@@ -78,7 +78,8 @@ describe('Test handling request', () => {
     const handler = R((data) => {
       expect(data).to.be.deep.equal(Object.assign({},
         JSON.parse(event.body),
-        { authorizer: undefined }
+        { authorizer: undefined },
+        { headers: event.headers }
       ));
       return Promise.resolve({ ok: 1 });
     });
