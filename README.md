@@ -30,6 +30,13 @@ module.exports.lambda = R((data) => {
 });
 ```
 
+`data` object in function handler contains next fields:
+- `headers` - all headers from api gateway
+- `context` - context of current executed function
+- `authorizer` - data from authorizer.
+
+Using this fields in post/get params if forbidden.
+
 Also it's possible to pass `handler` as second param and `settings` object as first.
 
 Default `settings` fields:

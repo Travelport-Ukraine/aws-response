@@ -1,6 +1,6 @@
 {
   "name": "aws-response",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Aws response handler",
   "main": "lib/index.js",
   "scripts": {

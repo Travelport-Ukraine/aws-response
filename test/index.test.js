@@ -46,8 +46,16 @@ describe('Test handling request', () => {
     const event = require('./sample-requests/GET-request-aws.json');
 
     const handler = R((data) => {
+      console.log(data);
       expect(data).to.be.deep.equal(Object.assign(
-        {}, event.queryStringParameters, { authorizer: undefined, headers: event.headers }));
+        {},
+        event.queryStringParameters,
+        {
+          authorizer: undefined,
+          headers: event.headers,
+          context: { logStreamName: '1', awsRequestId: '1' }
+        }
+      ));
       return { ok: 1 };
     });
 
@@ -79,7 +87,8 @@ describe('Test handling request', () => {
       expect(data).to.be.deep.equal(Object.assign({},
         JSON.parse(event.body),
         { authorizer: undefined },
-        { headers: event.headers }
+        { headers: event.headers },
+        { context: { logStreamName: '1', awsRequestId: '1' } }
       ));
       return Promise.resolve({ ok: 1 });
     });
