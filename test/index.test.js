@@ -1,4 +1,6 @@
 const { expect } = require('chai');
+const lowercaseKeys = require('lowercase-keys');
+
 const R = require('../lib/index');
 
 describe('Test handling request', () => {
@@ -52,7 +54,7 @@ describe('Test handling request', () => {
         event.queryStringParameters,
         {
           authorizer: undefined,
-          headers: event.headers,
+          headers: lowercaseKeys(event.headers),
           context: { logStreamName: '1', awsRequestId: '1' }
         }
       ));
@@ -87,7 +89,7 @@ describe('Test handling request', () => {
       expect(data).to.be.deep.equal(Object.assign({},
         JSON.parse(event.body),
         { authorizer: undefined },
-        { headers: event.headers },
+        { headers: lowercaseKeys(event.headers) },
         { context: { logStreamName: '1', awsRequestId: '1' } }
       ));
       return Promise.resolve({ ok: 1 });
