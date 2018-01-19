@@ -10,7 +10,7 @@ Include to your project as git dependency
 
 Use default exported function in next way
 
-```
+```javascript
 const R = required('aws-response');
 
 module.exports.lambda = R((data) => {
@@ -40,7 +40,8 @@ Using this fields in post/get params if forbidden.
 Also it's possible to pass `handler` as second param and `settings` object as first.
 
 Default `settings` fields:
-```
+
+```javascript
 const defaultSettings = {
     transform: data => data, // called first 
     validate: data => data,  // than validate and after validation handler is called
@@ -51,7 +52,7 @@ const defaultSettings = {
 
 All responses have next shape and returned in compatible format with AWS Lambda proxy integration
 
-```
+```javascript
 {
     statusCode: 200 || 500,
     header: { Access-Control-Allow-Origin: '*' },
@@ -61,7 +62,7 @@ All responses have next shape and returned in compatible format with AWS Lambda 
 
 ### Success body
  
-```
+```javascript
 {
   "data": {
     "ok": 1
@@ -79,7 +80,7 @@ All responses have next shape and returned in compatible format with AWS Lambda 
 
 ### Error body
 
-```
+```javascript
 {
   "dataAvailable": false, 
   "errorData": null, 
