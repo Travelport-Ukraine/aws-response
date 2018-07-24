@@ -28,6 +28,9 @@
       "param1": "ok",
       "param2": "okok"
     },
+    "pathParameters": {
+      "path1": "ok"
+    },
     "requestContext": {
       "accountId": "",
       "apiId": "",
