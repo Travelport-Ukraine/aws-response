@@ -55,6 +55,9 @@ describe('Test handling request', () => {
         {},
         event.queryStringParameters,
         {
+          path1: 'ok',
+        },
+        {
           authorizer: undefined,
           headers: lowercaseKeys(event.headers),
           context: { logStreamName: '1', awsRequestId: '1' }
