@@ -17,9 +17,7 @@ describe('Test handling request', () => {
       return { response: { ok: 1 }};
     });
 
-    handler(event, { requestId: 12345 }, (err, result) => {
-      cb();
-    });
+    handler(event, { requestId: 12345 }).then(() => cb());
   });
 
 
@@ -35,7 +33,7 @@ describe('Test handling request', () => {
       return { response: { ok: 1 } };
     });
 
-    handler(event, { requestId: 12345 }, (err, result) => {
+    handler(event, { requestId: 12345 }).then((result) => {
       try {
         expect(result.body).to.be.a('string');
         const body = JSON.parse(result.body);
@@ -66,7 +64,7 @@ describe('Test handling request', () => {
       return { response: { ok: 1 }};
     });
 
-    handler(event, {logStreamName: '1', awsRequestId: '1'}, (err, result) => {
+    handler(event, {logStreamName: '1', awsRequestId: '1'}).then((result) => {
       try {
         expect(result).to.have.all.keys(['statusCode', 'body', 'headers']);
         expect(result.headers).to.be.an('object');
@@ -104,7 +102,7 @@ describe('Test handling request', () => {
       return Promise.resolve({ response: { ok: 1 }});
     });
 
-    handler(event, {logStreamName: '1', awsRequestId: '1'}, (err, result) => {
+    handler(event, {logStreamName: '1', awsRequestId: '1'}).then((result) => {
       try {
         expect(result).to.have.all.keys(['statusCode', 'body', 'headers']);
         expect(result.headers).to.be.an('object');
@@ -136,7 +134,7 @@ describe('Test handling request', () => {
       throw Error('PANIC');
     });
 
-    handler(event, {logStreamName: '1', awsRequestId: '1'}, (err, result) => {
+    handler(event, {logStreamName: '1', awsRequestId: '1'}).then((result) => {
       try {
         expect(result).to.have.all.keys(['statusCode', 'body', 'headers']);
         expect(result.headers).to.be.an('object');
@@ -167,7 +165,7 @@ describe('Test handling request', () => {
       return Promise.reject('PANIC');
     });
 
-    handler(event, {logStreamName: '1', awsRequestId: '1'}, (err, result) => {
+    handler(event, {logStreamName: '1', awsRequestId: '1'}).then((result) => {
       try {
         expect(result).to.have.all.keys(['statusCode', 'body', 'headers']);
         expect(result.headers).to.be.an('object');
@@ -199,7 +197,7 @@ describe('Test handling request', () => {
       return Promise.reject(new Error('PANIC'));
     });
 
-    handler(event, {logStreamName: '1', awsRequestId: '1'}, (err, result) => {
+    handler(event, {logStreamName: '1', awsRequestId: '1'}).then((result) => {
       try {
         expect(result).to.have.all.keys(['statusCode', 'body', 'headers']);
         expect(result.headers).to.be.an('object');
@@ -253,7 +251,7 @@ describe('Test handling request', () => {
       };
     });
 
-    handler(event, { logStreamName: '1', awsRequestId: '1' }, (err, result) => {
+    handler(event, { logStreamName: '1', awsRequestId: '1' }).then((result) => {
       try {
         expect(result).to.have.all.keys(['statusCode', 'body', 'headers', 'isBase64Encoded']);
         expect(result.headers).to.be.an('object');
@@ -301,7 +299,7 @@ describe('Test handling request', () => {
       };
     });
 
-    handler(event, { logStreamName: '1', awsRequestId: '1' }, (err, result) => {
+    handler(event, { logStreamName: '1', awsRequestId: '1' }).then((result) => {
       try {
         expect(result).to.have.all.keys(['statusCode', 'body', 'headers', 'isBase64Encoded']);
         expect(result.headers).to.be.an('object');
