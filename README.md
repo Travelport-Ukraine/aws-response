@@ -96,6 +96,42 @@ All responses have next shape and returned in compatible format with AWS Lambda 
 }
 ```
 
+### Custom body
+To achieve customization of the response provide these additional parameters from your lambda function:
+| Name        | Default           | Description  |
+| ------------- |-------------| -----|
+| custom     | `false` | Flag to enable custom body response |
+| options      | `{}`      |   Custom options such as additional heders, `isBase64Encoded`, `statusCode` or any another options you might need |
+
+Please, make sure to have your `response` as a string and `custom` option is provided.
+
+#### Example
+
+```javascript
+// labmda.js
+const R = require('aws-response');
+
+function demo() {
+  // ...
+  const buffer = Buffer.from('Your image data');
+
+  return {
+    custom: true,
+    options: {
+      isBase64Encoded: true,
+      headers: {
+        'Content-Type': 'image/png',
+      },
+      response: buffer.toString('base64'),
+      statusCode: 200,
+    },
+  };
+}
+
+exports.handler = R(demo);
+```
+
+
 ### Development
 
 Please check package.json for commands.

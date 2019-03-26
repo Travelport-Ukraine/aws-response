@@ -222,4 +222,96 @@ describe('Test handling request', () => {
       }
     });
   });
+
+  it('should return custom result (1)', (cb) => {
+    const event = require('./sample-requests/GET-request-aws.json');
+
+    const handler = R((data) => {
+      expect(data).to.be.deep.equal(
+        Object.assign(
+          {},
+          event.queryStringParameters,
+          {
+            path1: 'ok',
+          },
+          {
+            authorizer: undefined,
+            headers: lowercaseKeys(event.headers),
+            context: { logStreamName: '1', awsRequestId: '1' },
+          }
+        )
+      );
+      return {
+        response: 'test',
+        custom: true,
+        options: {
+          isBase64Encoded: true,
+          headers: {
+            'Content-Type': 'image/png',
+          },
+        },
+      };
+    });
+
+    handler(event, { logStreamName: '1', awsRequestId: '1' }, (err, result) => {
+      try {
+        expect(result).to.have.all.keys(['statusCode', 'body', 'headers', 'isBase64Encoded']);
+        expect(result.headers).to.be.an('object');
+        expect(result.headers).to.have.all.keys('Access-Control-Allow-Origin', 'Content-Type');
+        expect(result.statusCode).to.be.equal(200);
+        expect(result.body).to.be.a('string');
+        const response = result.body;
+        expect(response).to.be.not.null;
+        expect(response).to.be.equal('test');
+        cb();
+      } catch (err) {
+        cb(err);
+      }
+    });
+  });
+
+  it('should return custom result (2)', (cb) => {
+    const event = require('./sample-requests/GET-request-aws.json');
+
+    const handler = R((data) => {
+      expect(data).to.be.deep.equal(
+        Object.assign(
+          {},
+          event.queryStringParameters,
+          {
+            path1: 'ok',
+          },
+          {
+            authorizer: undefined,
+            headers: lowercaseKeys(event.headers),
+            context: { logStreamName: '1', awsRequestId: '1' },
+          }
+        )
+      );
+      return {
+        response: null,
+        custom: true,
+        options: {
+          statusCode: 404,
+          isBase64Encoded: true,
+          headers: {
+            'Content-Type': 'image/png',
+          },
+        },
+      };
+    });
+
+    handler(event, { logStreamName: '1', awsRequestId: '1' }, (err, result) => {
+      try {
+        expect(result).to.have.all.keys(['statusCode', 'body', 'headers', 'isBase64Encoded']);
+        expect(result.headers).to.be.an('object');
+        expect(result.headers).to.have.all.keys('Access-Control-Allow-Origin', 'Content-Type');
+        expect(result.statusCode).to.be.equal(404);
+        expect(result.body).to.be.null;
+        cb();
+      } catch (err) {
+        cb(err);
+      }
+    });
+  });
 });
