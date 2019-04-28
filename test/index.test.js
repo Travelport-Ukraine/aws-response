@@ -312,4 +312,38 @@ describe('Test handling request', () => {
       }
     });
   });
+
+  it('should return custom status code and headers from error', () => {
+    const event = require('./sample-requests/GET-request-aws.json');
+
+    const handler = R((data) => {
+      expect(data).to.be.deep.equal(
+        Object.assign(
+          {},
+          event.queryStringParameters,
+          {
+            path1: 'ok',
+          },
+          {
+            authorizer: undefined,
+            headers: lowercaseKeys(event.headers),
+            context: { logStreamName: '1', awsRequestId: '1' },
+          }
+        )
+      );
+
+      const error = new Error();
+      error.statusCode = 405;
+      error.headers = { 'X-API': '1.0.0' };
+
+      throw error;
+    });
+
+    return handler(event, { logStreamName: '1', awsRequestId: '1' }).then((result) => {
+      expect(result.headers).to.be.an('object');
+      expect(result.headers).to.have.all.keys('Access-Control-Allow-Origin', 'X-API');
+      expect(result.headers['X-API']).to.be.equal('1.0.0');
+      expect(result.statusCode).to.be.equal(405);
+    });
+  });
 });
