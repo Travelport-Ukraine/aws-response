@@ -346,4 +346,17 @@ describe('Test handling request', () => {
       expect(result.statusCode).to.be.equal(405);
     });
   });
+
+  it('should be able to decode base64 incoming request', () => {
+    const event = require('./sample-requests/GET-request-aws-base64encoded.json');
+
+    const handler = R((data) => {
+      expect(data.some).to.be.eq('json'); // base64 decoded json
+    });
+
+    return handler(event, { logStreamName: '1', awsRequestId: '1' }).then((result) => {
+      expect(result.headers).to.be.an('object');
+      expect(result.headers).to.have.all.keys('Access-Control-Allow-Origin');
+    });
+  });
 });
