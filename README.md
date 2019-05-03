@@ -23,10 +23,16 @@ module.exports.lambda = R((data) => {
     // return Promise.reject(new Error('Some error')); // = 500 status and correct errorMessage
     
     // or
-        // return Promise.reject({ data:false }); // = 500 status and UnkownError name and message
+    // return Promise.reject({ data:false }); // = 500 status and UnkownError name and message
     
     // or
     // throw Error('Some error'); // will be handled as error and status = 500
+    
+    // or
+    // const e = new Error('Not found');
+    // e.statusCode = 404;
+    // e.headers = { 'NotFoundToken': 12345 }
+    // throw e;
 });
 ```
 
