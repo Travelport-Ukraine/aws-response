@@ -1,4 +1,6 @@
-# AWS-Response
+# AWS-Response – ABANDONED
+
+Please use https://github.com/middyjs/middy or any other better lib.
 
 ## Purpose
 
